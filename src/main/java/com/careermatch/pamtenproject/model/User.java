@@ -17,25 +17,25 @@ public class User {
     private Integer userId;
 
     @ManyToOne
-    @JoinColumn(name = "Role_id", referencedColumnName = "Role_id")
+    @JoinColumn(name = "role_id", referencedColumnName = "Role_id")
     private Role role;
 
-    @Column(name = "Email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "Password_Hash", nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String password;
 
-    @Column(name = "Phone")
+    @Column(name = "phone")
     private String phone;
 
     @Lob
-    @Column(name = "QR_code")
-    private byte[] qrCode;
+    @Column(name = "qr_code")
+    private String qrCode;
 
     @Lob
-    @Column(name = "Authenticator")
-    private byte[] authenticator;
+    @Column(name = "authenticator")
+    private String authenticator;
 
     @Column(name = "full_name")
     private String fullName;
