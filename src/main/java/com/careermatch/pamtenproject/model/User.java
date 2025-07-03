@@ -17,37 +17,26 @@ public class User {
     private Integer userId;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "Role_id")
+    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
     private Role role;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "Email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password_hash", nullable = false)
     private String password;
 
-    @Column(name = "phone")
+    @Column(name = "Phone", nullable = false)
     private String phone;
 
     @Lob
-    @Column(name = "qr_code")
-    private String qrCode;
+    @Column(name = "QR_code")
+    private byte[] qrCode;
 
     @Lob
-    @Column(name = "authenticator")
-    private String authenticator;
+    @Column(name = "Authenticator")
+    private byte[] authenticator;
 
     @Column(name = "full_name")
     private String fullName;
-
-    @Column(name = "active")
-    private Boolean active; // ✅ Add this line
-
-    public void setLastLoginTime(long l) {
-    }
-
-    public void setLastLoginTime(String lastLoginTime) {
-        // This method is intentionally left blank.
-        // It can be used to set the last login time if needed in the future.
-    }
 }

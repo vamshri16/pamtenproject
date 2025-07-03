@@ -1,15 +1,15 @@
 package com.careermatch.pamtenproject.controller;
 
-import com.careermatch.pamtenproject.dto.SignupRequest;
 import com.careermatch.pamtenproject.dto.LoginRequest;
 import com.careermatch.pamtenproject.dto.LoginResponse;
+import com.careermatch.pamtenproject.dto.SignupRequest;
 import com.careermatch.pamtenproject.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/auth/v1")
 @RequiredArgsConstructor
 public class AuthController {
 

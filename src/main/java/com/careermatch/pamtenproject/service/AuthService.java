@@ -1,8 +1,6 @@
 package com.careermatch.pamtenproject.service;
 
-import com.careermatch.pamtenproject.dto.LoginRequest;
-import com.careermatch.pamtenproject.dto.LoginResponse;
-import com.careermatch.pamtenproject.dto.SignupRequest;
+import com.careermatch.pamtenproject.dto.*;
 import com.careermatch.pamtenproject.model.Role;
 import com.careermatch.pamtenproject.model.User;
 import com.careermatch.pamtenproject.repository.RoleRepository;
@@ -23,22 +21,22 @@ public class AuthService {
 
     public String registerUser(SignupRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            return "Email already in use.";
+            return "User already exists with this email.";
         }
 
         Role role = roleRepository.findByRoleName(request.getRoleName())
-                .orElseThrow(() -> new RuntimeException("Role not found: " + request.getRoleName()));
+                .orElseThrow(() -> new RuntimeException("Role not found"));
 
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setPhone(request.getPhone());
-        user.setFullName(request.getFullName());
-        user.setRole(role);
-        user.setActive(true);
+        User user = User.builder()
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .phone(request.getPhone())
+                .role(role)
+                .fullName(request.getFullName())
+                .build();
 
         userRepository.save(user);
-        return "User registered successfully";
+        return "User registered successfully!";
     }
 
     public LoginResponse loginUser(LoginRequest request) {
@@ -50,14 +48,6 @@ public class AuthService {
         }
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().getRoleName());
-
-
-
-        user.setLastLoginTime(System.currentTimeMillis());
-        userRepository.save(user);
-
-        // Return the login response with token, role, and email
-
         return new LoginResponse(token, user.getRole().getRoleName(), user.getEmail());
     }
 }
